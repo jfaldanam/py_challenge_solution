@@ -27,6 +27,9 @@ app = FastAPI(
 
 
 def minio_client():
+    """Dependency to create a MinIO client
+
+    :return: A MinIO client"""
     minio_service = os.environ.get("PY_CHALLENGE_MINIO_SERVICE")
     minio_access_key = os.environ.get("PY_CHALLENGE_MINIO_ACCESS_KEY")
     minio_secret_key = os.environ.get("PY_CHALLENGE_MINIO_SECRET_KEY")
@@ -44,7 +47,13 @@ def minio_client():
     return
 
 
-@app.get("/models")
+@app.get(
+    "/models",
+    summary="Get the list of models",
+    description="This endpoint returns the list of trained models.",
+    response_model=list[str],
+    tags=["ml"],
+)
 def models(minio_client: Minio = Depends(minio_client)) -> list[str]:
     bucket = os.environ.get("PY_CHALLENGE_MINIO_BUCKET")
     if not minio_client.bucket_exists(bucket):
@@ -52,7 +61,13 @@ def models(minio_client: Minio = Depends(minio_client)) -> list[str]:
     return [o.object_name.removesuffix("/") for o in minio_client.list_objects(bucket)]
 
 
-@app.post("/models/train")
+@app.post(
+    "/models/train",
+    summary="Train a new model",
+    description="This endpoint trains a new model.",
+    response_model=TrainedModelResponse,
+    tags=["ml"],
+)
 def train_endpoint(
     request: TrainInput, minio_client: Minio = Depends(minio_client)
 ) -> TrainedModelResponse:
@@ -66,7 +81,14 @@ def train_endpoint(
     return TrainedModelResponse(model_id=model_id, metrics=metrics)
 
 
-@app.post("/models/predict")
+@app.post(
+    "/models/predict",
+    summary="Predict the species of a set of animals",
+    description="This endpoint predicts the species of a set of animals using one of the previously trained models.",
+    response_model=list[ModelPrediction],
+    responses={404: {"description": "Model not found"}},
+    tags=["ml"],
+)
 def predict(
     model_id: str,
     characteristics: list[AnimalCharacteristics],

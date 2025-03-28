@@ -18,6 +18,14 @@ def prediction_pipeline(
     animal_characteristics: list[AnimalCharacteristics],
     minio_client: Minio,
 ) -> list[ModelPrediction]:
+    """Predict the species of a set of animals using a trained model"
+
+    :param model_id: The ID of the model
+    :param animal_characteristics: A list of animal characteristics
+    :param minio_client: A MinIO client to retrieve the trained model
+
+    :return: A list of ModelPrediction instances
+    """
     df = pd.DataFrame([ac.model_dump() for ac in animal_characteristics])
 
     return predict(model_id, df.to_numpy(), minio_client)
@@ -26,6 +34,14 @@ def prediction_pipeline(
 def predict(
     model_id: str, x_test: np.ndarray, minio_client: Minio
 ) -> list[ModelPrediction]:
+    """Predict the species of a set of animals using a trained model
+
+    :param model_id: The ID of the model
+    :param x_test: The test data
+    :param minio_client: A MinIO client to retrieve the trained model
+
+    :return: A list with the predicted species and probabilities
+    """
     bucket = os.environ.get("PY_CHALLENGE_MINIO_BUCKET")
     try:
         onnx_model = minio_client.get_object(bucket, f"{model_id}/model.onnx").data

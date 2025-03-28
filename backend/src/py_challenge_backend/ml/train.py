@@ -30,7 +30,13 @@ def training_pipeline(
     animal_characteristics: list[AnimalCharacteristics],
     minio_client: Minio,
 ) -> ModelMetrics:
-    """Train a model using the provided animal characteristics"""
+    """Train a model using the provided animal characteristics
+
+    :param model_id: The ID of the model
+    :param animal_characteristics: A list of animal characteristics
+    :param minio_client: A MinIO client to store the trained model
+
+    :return: The metrics of the trained model"""
 
     bucket = os.environ.get("PY_CHALLENGE_MINIO_BUCKET")
     if minio_client.bucket_exists(bucket):
@@ -141,9 +147,12 @@ def train_model(
 ) -> ModelMetrics:
     """Train a model using the provided labelled data
 
+    :param model_id: The ID of the model
     :param training_animals: A list of labelled animals
+    :param minio_client: A MinIO client to store the trained model
+    :param train_split: The proportion of the data to use for training
 
-    :return: A trained model"""
+    :return: The metrics of the trained model"""
     x_list = []
     y_list = []
     for animal in training_animals:
@@ -172,6 +181,14 @@ def train_model(
 def evaluate_model(
     model: RandomForestClassifier, x_test: pd.DataFrame, y_test: pd.Series
 ) -> ModelMetrics:
+    """Evaluate a model using the provided test data"
+
+    :param model: The model to evaluate
+    :param x_test: The test data
+    :param y_test: The test labels
+
+    :return: The metrics of the model
+    """
     metrics = {}
     # Predict and evaluate the model
     y_pred = model.predict(x_test)
@@ -194,6 +211,17 @@ def store_model(
     y_test: pd.Series,
     minio_client: Minio,
 ) -> None:
+    """Store the trained model, the data used for training and its metrics in MinIO"
+
+    :param model_id: The ID of the model
+    :param model: The trained model
+    :param metrics: The metrics of the model
+    :param x_train: The training data
+    :param x_test: The testing data
+    :param y_train: The training labels
+    :param y_test: The testing labels
+    :param minio_client: A MinIO client to store the trained
+    """
     bucket = os.environ.get("PY_CHALLENGE_MINIO_BUCKET")
     if not minio_client.bucket_exists(bucket):
         minio_client.make_bucket(bucket)
