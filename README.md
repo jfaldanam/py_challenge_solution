@@ -18,7 +18,7 @@ To run the complete solution, you need to have Docker and Docker Compose install
 > Putting any database with default credentials open to any public network is a security risk.
 
 ```bash
-$ docker-compose up --build
+$ docker compose up --build
 ```
 This will build and run the data, backend and frontend services, as well as the MinIO service for S3-like storage.
 
