@@ -4,3 +4,6 @@ __pycache__
 .coverage
 .pytest_cache
 *.sqlite
+# Local volumes for docker-compose
+db/*
+!db/.gitkeep

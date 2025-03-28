@@ -1,0 +1,47 @@
+services:
+  data-service:
+    build:
+      context: ./py_challenge/data-service
+      dockerfile: Dockerfile
+    ports:
+      - "8777:8777"
+    networks:
+      - py_challenge
+  minio-service:
+    image: minio/minio
+    command: server /data --console-address "0.0.0.0:9006" --address "0.0.0.0:9005"
+    ports:
+      - "9005:9005"
+      - "9006:9006"
+    networks:
+      - py_challenge
+    volumes:
+      - ./db/backend-minio:/data
+  backend-service:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: --data-service http://data-service:8777 --minio-service minio-service:9005 --minio-console http://minio-service:9006
+    ports:
+      - "8778:8778"
+    networks:
+      - py_challenge
+    depends_on:
+      - data-service
+      - minio-service
+  frontend-service:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    command: --data-service http://data-service:8777 --backend-service http://backend-service:8778 --sqlite-db /data/py_challenge.sqlite
+    ports:
+      - "8779:8779"
+    networks:
+      - py_challenge
+    depends_on:
+      - backend-service
+    volumes:
+      - ./db/frontend-sqlite:/data
+
+networks:
+  py_challenge: {}
