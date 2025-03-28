@@ -1,0 +1,30 @@
+[project]
+name = "py_challenge_frontend"
+dynamic = ["version"]
+description = "Frontend solution for py_challenge"
+authors = [{ name = "jfaldanam" , email = "jfaldanam@uma.es"}]
+license = "MIT"
+readme = "README.md"
+
+dependencies = [
+    "streamlit>=1.44.0",
+    "structlog>=25.0.0",
+    "pydantic>=2.11.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/jfaldanam/py_challenge_solution"
+"Bug Tracker" = "https://github.com/jfaldanam/py_challenge_solution/issues"
+
+[project.optional-dependencies]
+dev = ["ruff"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/py_challenge_frontend/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/py_challenge_frontend"]
