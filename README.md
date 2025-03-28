@@ -1,5 +1,8 @@
 # Structure of this solution
 
+> [!NOTE]
+> This repository includes git submodules. To clone it, use the following command: `git submodule update --init --recursive`. This will clone the repository and all its submodules. If you have already cloned the repository, you can update the submodules with the same command.
+
 This solution is structured as follows:
 - The solutions to steps 0 and 1 are not covered, they are general guidelines to motivate the the use of Git, Python best practices, and Docker. For 1 you can check the [data-service/](https://github.com/jfaldanam/py_challenge/tree/master/data-service) folder in the repostory describing the challenge.
 - The solution to step 2 and 3 is in the [backend/](backend/) folder, check the [README.md](backend/README.md) for more information.
