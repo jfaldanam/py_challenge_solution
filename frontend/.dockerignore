@@ -1,0 +1,6 @@
+__pycache__
+.venv/
+.ruff_cache
+.coverage
+.pytest_cache
+*.sqlite
