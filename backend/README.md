@@ -56,3 +56,4 @@ To run the tests, execute the following command:
 $ coverage run -m pytest tests/
 $ coverage report
 ```
+
