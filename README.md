@@ -9,7 +9,7 @@ This solution is structured as follows:
 - The solution to step 4 is in the [frontend/](frontend/) folder, check the [README.md](frontend/README.md) for more information.
 - The solution to step 5 is split in each folder (Dockerfile's and README.md's) and the final deployment is in the [docker-compose.yaml](docker-compose.yaml) file, instruction on how to run it below.
 
-# How to run the comlete solution
+# How to run the complete solution
 To run the complete solution, you need to have Docker and Docker Compose installed. Then, you can run the following command in the root of the repository:
 
 
