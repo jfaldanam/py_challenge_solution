@@ -5,6 +5,8 @@
         <select #selectedModelInput class="border border-gray-300 rounded p-2 " name="models" id="models">
         @for(model of availableModels(); track model) {
             <option [value]="model">{{model}}</option>
+        }@empty {
+            <option disabled>No models available</option>
         }
         </select><br>
         <label for="animalLegs" class="block mb-2 font-medium">Number of legs:</label>
