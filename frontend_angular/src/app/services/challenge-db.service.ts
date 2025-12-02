@@ -2,10 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { TrainModelRequest } from '../interfaces/trainmodelrequest';
-import { TrainModelResponse } from '../interfaces/trainmodelresponse';
-import { AnimalDescription } from '../interfaces/predictanimalrequest';
-import { PredictAnimalResponse } from '../interfaces/predictanimalresponse';
+import { TrainModelRequest } from '../shared/interfaces/train-model-request.model';
+import { TrainModelResponse } from '../shared/interfaces/train-model-response.model';
+import { AnimalDescription } from '../shared/interfaces/predict-animal-request.model';
+import { PredictAnimalResponse } from '../shared/interfaces/predict-animal-response.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({

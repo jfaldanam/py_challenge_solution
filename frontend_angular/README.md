@@ -2,7 +2,7 @@
 The frontend is implemented using typescript and Angular to implement a web interface.
 
 ### Prerequisites
-- Node.js and npm installed. You can download them from [nodejs.org](https://nodejs.org/en/download).
+- Node.js (>=24) and npm installed. You can download them from [nodejs.org](https://nodejs.org/en/download).
 - Angular CLI installed globally. You can install it using npm: `npm install -g @angular/cli`.
 
 # Deployment

@@ -1,0 +1,13 @@
+<div class="center px-4">
+<form (submit)="triggerTrainModel(seedInput.value, datapointsInput.value); $event.preventDefault();">
+    <h2 class="text-lg font-semibold mb-4">Train a New Model</h2>
+    <label for="seed" class="block mb-2 font-medium">Seed:</label>
+    <input #seedInput type="number" id="seed" name="seed" value="42" class="border border-gray-300 rounded p-2 mb-4" />
+    <label for="datapoints" class="block mb-2 font-medium">Number of datapoints:</label>
+    <input #datapointsInput type="number" id="datapoints" name="datapoints" value="600" class="border border-gray-300 rounded p-2 mb-4" />
+    <label for="trainModel" class="block mb-2 font-medium">Train a new model:</label>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Train Model
+    </button>
+</form>
+</div>
