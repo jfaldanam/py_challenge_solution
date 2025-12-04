@@ -1,0 +1,6 @@
+@if (predictedAnimal(); as animal) {
+    <div>
+        <h1>Predict species: {{ animal.species }}</h1>
+        <p>Probabilities: {{ animal.probabilities | json }}</p>
+    </div>
+}

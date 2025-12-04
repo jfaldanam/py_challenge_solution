@@ -1,6 +1,7 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { ChallengeDBService } from '../../services/challenge-db.service';
 import { AnimalDescription } from '../../shared/interfaces/predict-animal-request.model';
+import { PredictAnimalResponse } from '../../shared/interfaces/predict-animal-response.model';
 
 @Component({
   selector: 'app-predict-form',
@@ -9,6 +10,7 @@ import { AnimalDescription } from '../../shared/interfaces/predict-animal-reques
 })
 export class PredictForm {
   availableModels = input.required<string[]>();
+  predictedAnimal = output<PredictAnimalResponse>();
   challengeDB = inject(ChallengeDBService);
 
 
@@ -17,7 +19,7 @@ export class PredictForm {
         animalDescription
       ]).subscribe(response => {
         const predictedResponse = response[0]; // As we only sent one animal, we expect only one response
-      alert(`Predicted species: ${predictedResponse.species}\nProbabilities: ${JSON.stringify(predictedResponse.probabilities)}`);
+        this.predictedAnimal.emit(predictedResponse);
     });
   }
 
