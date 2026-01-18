@@ -13,10 +13,16 @@ import { NotificationToast } from './components/notification-toast/notification-
   imports: [RouterOutlet, TrainForm, PredictForm, AnimalPredictDisplay, NotificationToast],
   template: `
   <main class="text-black-600 space-y-6 p-8">
-    <div class="flex flex-col md:flex-row">
+    <div class="flex w-full flex-col md:flex-row">
+      <div class="w-full md:w-1/3">
       <app-train-form (availableModels)="updateAvailableModels($event)" (showToast)="updateToast($event)" />
+      </div>
+      <div class="w-full md:w-1/3">
       <app-predict-form [availableModels]="availableModels" (predictedAnimal)="handlePrediction($event)" (showToast)="updateToast($event)" />
+      </div>
+      <div class="w-full md:w-1/3">
       <app-animal-predict-display [predictedAnimal]="predictedAnimal" />
+      </div>
     </div>
     <app-notification-toast
       [state]="toastState"

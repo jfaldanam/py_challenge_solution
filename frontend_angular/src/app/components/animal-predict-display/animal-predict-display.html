@@ -1,21 +1,26 @@
 @if (predictedAnimal(); as animal) {
     <div>
-        <h1>Predict species: {{ animal.species }}</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Species</th>
-                    <th>Probability</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (item of (animal.probabilities | keyvalue); track item.key) {
-                    <tr>
-                        <td>{{ item.key }}</td>
-                        <td>{{ item.value }}</td>
+        <h1 class="text-lg font-semibold mb-4">Predict species: {{ addEmojiToAnimal(animal.species) }}</h1>
+        <div class="flex justify-center">
+            <table class="w-3/4 table-auto border border-gray-400">
+                <caption class="caption-bottom text-sm text-gray-600">
+                    Probabilities of data to be part of each supported species.
+                </caption>
+                <thead>
+                    <tr class="border border-gray-300">
+                        <th>Species</th>
+                        <th>Probability</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @for (item of (animal.probabilities | keyvalue); track item.key) {
+                        <tr class="border border-gray-300">
+                            <td class="text-center">{{ addEmojiToAnimal(item.key) }}</td>
+                            <td class="text-center">{{ item.value | percent }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 }

@@ -3,6 +3,7 @@ import { ChallengeDBService } from '../../services/challenge-db.service';
 import { AnimalDescription } from '../../shared/interfaces/predict-animal-request.model';
 import { PredictAnimalResponse } from '../../shared/interfaces/predict-animal-response.model';
 import { ToastState } from '../../shared/interfaces/notification-toast-state.model';
+import { emojifyAnimal } from '../../shared/utils/emoji';
 
 @Component({
   selector: 'app-predict-form',
@@ -23,30 +24,12 @@ export class PredictForm {
         this.predictedAnimal.emit(predictedResponse);
         let toastSpeciesStr = predictedResponse.species;
         try {
-          toastSpeciesStr = this.emojifyAnimal(predictedResponse.species);
+          toastSpeciesStr = emojifyAnimal(predictedResponse.species);
         } catch {
           // Keep str only value
         }
         this.showToast.emit({ visible: true, message: `Prediction succesful, animal is classified as a ${toastSpeciesStr}` })
     });
-  }
-
-  emojifyAnimal(species: string) {
-    console.log(species)
-    switch (species) {
-      case "dog":
-        return "🐶 dog";
-      case "chicken":
-        return "🐔 chicken";
-      case "kangaroo":
-        return "🦘kangaroo";
-      case "elephant":
-        return "🐘 elephant";
-      case "unknown":
-        return "❓ unknown";
-      default:
-        throw Error("Uknown animal species");
-    }
   }
 
   // Allow template to access global Number function
