@@ -19,9 +19,15 @@ export class TrainForm {
   }
 
   refreshModels() {
-    this.challengeDB.getAvailableModels().subscribe(data => {
-      this.cachedAvailableModels = data;
-      this.availableModels.emit(data);
+    this.challengeDB.getAvailableModels().subscribe({
+      next: (data) => {
+        this.cachedAvailableModels = data;
+        this.availableModels.emit(data);
+      },
+      error: (err) => {
+        console.error('Failed to fetch available models:', err);
+        this.showToast.emit({ visible: true, message: 'Network error: Unable to fetch available models.', state: 'error' });
+      }
     });
   }
 
@@ -30,13 +36,19 @@ export class TrainForm {
     const datapointsNum = Number(number_of_datapoints);
     const modelId = `seed-${seedNum}-datapoints-${datapointsNum}`;
     if (this.cachedAvailableModels.includes(modelId)) {
-      this.showToast.emit({ visible: true, message: 'Model already exists! Skipping training.' });
+      this.showToast.emit({ visible: true, message: 'Model already exists! Skipping training.', state: 'info' });
       return;
     }
 
-    this.challengeDB.trainModel({seed: seedNum, number_of_datapoints: datapointsNum}).subscribe(() => {
-      this.refreshModels();
-      this.showToast.emit({ visible: true, message: 'Model trained successfully!' });
+    this.challengeDB.trainModel({seed: seedNum, number_of_datapoints: datapointsNum}).subscribe({
+      next: () => {
+        this.refreshModels();
+        this.showToast.emit({ visible: true, message: 'Model trained successfully!', state: 'success' });
+      },
+      error: (err) => {
+        console.error('Failed to train a model:', err);
+        this.showToast.emit({ visible: true, message: 'Network error: Unable to train model.', state: 'error' });
+      }
     });
   }
 }

@@ -1,5 +1,8 @@
 @if (state().visible) {
-    <div class="fixed left-0 bottom-[1em] mx-[10%] bg-gray-300 w-4/5 h-[3em] flex items-center justify-between rounded-lg">
+    <div class="fixed left-0 bottom-[1em] mx-[10%] w-4/5 h-[3em] flex items-center justify-between rounded-lg"
+         [class.bg-green-300]="state().state === 'success'"
+         [class.bg-red-300]="state().state === 'error'"
+         [class.bg-blue-300]="state().state === 'info'">
             <span class="flex-1 text-center w-full">{{ state().message }}</span>
             <button type="button" (click)="sendClearEvent()" class="w-[2em]">
                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

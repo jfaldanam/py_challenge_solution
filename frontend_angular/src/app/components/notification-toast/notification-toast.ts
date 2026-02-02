@@ -11,6 +11,6 @@ export class NotificationToast {
   clearToast = output<ToastState>();
 
   sendClearEvent() {
-    this.clearToast.emit({ visible: false, message: "" });
+    this.clearToast.emit({ visible: false, message: "", state: 'info' });
   }
 }

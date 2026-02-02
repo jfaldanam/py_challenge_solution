@@ -17,19 +17,31 @@ export class PredictForm {
   showToast = output<ToastState>();
 
   triggerPredictAnimal(modelId: string, animalDescription: AnimalDescription) {
+    if (modelId.trim() === '') {
+      this.showToast.emit({ visible: true, message: 'Please select a valid model before running prediction.', state: 'info'});
+      return;
+    }
+
     this.challengeDB.predictAnimal(modelId, [
         animalDescription
-      ]).subscribe(response => {
-        const predictedResponse = response[0]; // As we only sent one animal, we expect only one response
-        this.predictedAnimal.emit(predictedResponse);
-        let toastSpeciesStr = predictedResponse.species;
-        try {
-          toastSpeciesStr = emojifyAnimal(predictedResponse.species);
-        } catch {
-          // Keep str only value
+      ]).subscribe(
+      {
+        next: (response) => {
+          const predictedResponse = response[0]; // As we only sent one animal, we expect only one response
+          this.predictedAnimal.emit(predictedResponse);
+          let toastSpeciesStr = predictedResponse.species;
+          try {
+            toastSpeciesStr = emojifyAnimal(predictedResponse.species);
+          } catch {
+            // Keep str only value
+          }
+          this.showToast.emit({ visible: true, message: `Prediction succesful, animal is classified as a ${toastSpeciesStr}`, state: 'success' });
+        },
+        error: (err) => {
+          console.error('Failed to run inference:', err);
+          this.showToast.emit({ visible: true, message: 'Network error: Unable to run inference on provided data.', state: 'error' });
         }
-        this.showToast.emit({ visible: true, message: `Prediction succesful, animal is classified as a ${toastSpeciesStr}` })
-    });
+      });
   }
 
   // Allow template to access global Number function

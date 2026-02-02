@@ -38,7 +38,7 @@ export class App {
   protected readonly title = signal('py_challenge_frontend_angular');
   availableModels: string[] = [];
   predictedAnimal: PredictAnimalResponse | undefined;
-  toastState: ToastState = { visible: false, message: "" };
+  toastState: ToastState = { visible: false, message: "", "state": 'info' };
 
   updateAvailableModels(models: string[]) {
     this.availableModels = models;
