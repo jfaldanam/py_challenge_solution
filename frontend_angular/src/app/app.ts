@@ -6,12 +6,14 @@ import { PredictAnimalResponse } from './shared/interfaces/predict-animal-respon
 import { ToastState } from './shared/interfaces/notification-toast-state.model';
 import { AnimalPredictDisplay } from './components/animal-predict-display/animal-predict-display';
 import { NotificationToast } from './components/notification-toast/notification-toast';
+import { Navbar } from './components/navbar/navbar';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TrainForm, PredictForm, AnimalPredictDisplay, NotificationToast],
+  imports: [RouterOutlet, TrainForm, PredictForm, AnimalPredictDisplay, NotificationToast, Navbar],
   template: `
+  <app-navbar />
   <main class="text-black-600 space-y-6 p-8">
     <div class="flex w-full flex-col md:flex-row">
       <div class="w-full md:w-1/3">
