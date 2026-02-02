@@ -6,6 +6,8 @@ lint:
 lint-fix:
 	@ng lint --fix
 
+test:
+	@ng test
 run:
 	@ng serve
 
