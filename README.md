@@ -23,6 +23,6 @@ $ docker compose up --build
 ```
 This will build and run the data, backend and frontend services, as well as the MinIO service for S3-like storage.
 
-The data service will be available at http://localhost:8777, the backend will be available at http://localhost:8778, the frontend at http://localhost:8779 and minio at http://localhost:9006 with the default credentials `minioadmin:minioadmin`.
+The data service will be available at http://localhost:8777, the backend will be available at http://localhost:8778, the frontend at http://localhost:8779 and minio at http://localhost:9006 with the default credentials `minioadmin:minioadmin`. Additionally, an alternative frontend using Angular will be available at http://localhost:8780.
 
 The database contents are stored in volumes under the [`db/`](db/) folder.
