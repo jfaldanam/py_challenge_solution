@@ -13,7 +13,7 @@ class TrainInput(BaseModel):
         default=500,
         title="Number of datapoints",
         description="The number of datapoints to generate",
-        gt=0,
+        gte=500,
     )
 
 

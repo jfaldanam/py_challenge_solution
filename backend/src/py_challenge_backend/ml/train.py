@@ -49,7 +49,7 @@ def training_pipeline(
             logger.info("Model not found, training a new model", model_id=model_id)
 
     assert len(animal_characteristics) >= 500, (
-        "At least one hundred animal characteristics must be provided to train a good model"
+        "At least five hundred animal characteristics must be provided to train a good model"
     )
 
     # As data is unlabelled, use clustering to group similar animals

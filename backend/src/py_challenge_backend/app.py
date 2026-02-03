@@ -1,6 +1,7 @@
 import os
 
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from minio import Minio
 
 from py_challenge_backend import __version__, logger
@@ -25,6 +26,13 @@ app = FastAPI(
     version=__version__,
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def minio_client():
     """Dependency to create a MinIO client

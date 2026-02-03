@@ -1,0 +1,41 @@
+<div class="center px-4">
+    <form (submit)="triggerPredictAnimal(selectedModelInput.value, { walks_on_n_legs: Number(animalLegs.value), height: Number(animalHeight.value), weight: Number(animalWeight.value), has_wings: animalWings.checked, has_tail: animalTail.checked }); $event.preventDefault();">
+        <h2 class="text-lg font-semibold mb-4">Send animal to predict</h2>
+        <div class="flex items-center mb-4">
+            <label for="models" class="block mb-2 font-medium w-2/5">Available models:</label>
+            <select #selectedModelInput class="border border-gray-300 rounded p-2 w-3/5 ml-auto" name="models" id="models">
+            @for(model of availableModels(); track model) {
+                <option [value]="model">{{model}}</option>
+            }@empty {
+                <option disabled>No models available</option>
+            }
+            </select>
+        </div>
+        <div class="flex items-center mb-4">
+            <label for="animalLegs" class="block mb-2 font-medium w-2/5">Number of legs:</label>
+            <input #animalLegs type="number" id="animalLegs" name="animalLegs" value="4" class="border border-gray-300 rounded p-2 w-3/5 ml-auto" /><br>
+        </div>
+        <div class="flex items-center mb-4">
+            <label for="animalHeight" class="block mb-2 font-medium w-2/5">Height (m):</label>
+            <input #animalHeight type="number" id="animalHeight" name="animalHeight" value="0.3" class="border border-gray-300 rounded p-2 w-3/5 ml-auto" /><br>
+        </div>
+        <div class="flex items-center mb-4">
+            <label for="animalWeight" class="block mb-2 font-medium w-2/5">Weight (kg):</label>
+            <input #animalWeight type="number" id="animalWeight" name="animalWeight" value="10" class="border border-gray-300 rounded p-2 w-3/5 ml-auto" /><br>
+        </div>
+        <div class="flex items-center mb-4">
+            <label for="animalWings" class="block mb-2 font-medium w-2/5">Has wings?</label>
+            <input #animalWings type="checkbox" id="animalWings" name="animalWings" class="px-2 ml-auto" />
+        </div>
+        <div class="flex items-center mb-4">
+            <label for="animalTail" class="block mb-2 font-medium w-2/5">Has tail?</label>
+            <input #animalTail type="checkbox" id="animalTail" name="animalTail" checked class="px-2 ml-auto" />
+        </div>
+        <div class="flex items-center mb-4">
+            <label for="predictAnimal" class="block mb-2 font-medium w-2/5">Predict animal with selected model:</label>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-3/5 ml-auto">
+            Predict Animal
+            </button>
+        </div>
+    </form>
+</div>

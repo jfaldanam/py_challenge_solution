@@ -42,6 +42,16 @@ services:
       - backend-service
     volumes:
       - ./db/frontend-sqlite:/data
+  frontend-angular-service:
+    build:
+      context: ./frontend_angular
+      dockerfile: Dockerfile
+    ports:
+      - "8780:8780"
+    networks:
+      - py_challenge
+    depends_on:
+      - backend-service
 
 networks:
   py_challenge: {}
